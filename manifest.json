@@ -1,12 +1,17 @@
 {
-  "background_color": "#ffffff",
-  "description": "Ofertas VIP - Reúna promoções de grandes marketplace, gere mensagens com IA e dispare automaticamente para o seu grupo VIP no WhatsApp.",
-  "dir": "ltr",
-  "display": "standalone",
   "name": "Ofertas VIP",
-  "orientation": "any",
-  "scope": "/",
   "short_name": "Ofertas VIP",
+  "description": "Divulgação e automação para grupos no WhatsApp",
   "start_url": "/",
-  "theme_color": "#ffffff"
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
