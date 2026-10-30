@@ -7,26 +7,121 @@
       name="description"
       content="Ofertas VIP — reúna promoções da Shopee, Shein, Mercado Livre e mais, gere a mensagem com IA e dispare automaticamente para o seu grupo VIP no WhatsApp."
     />
-    <title>Ofertas VIP — Divulgação para grupos no WhatsApp</title>
+    <title>Ofertas VIP — Painel de Divulgação</title>
 
     <!-- Manifesto do Aplicativo Embutido -->
     <link
       rel="manifest"
-      href='data:application/manifest+json,{"name":"Ofertas VIP","short_name":"Ofertas VIP","description":"Divulgação e automação para grupos no WhatsApp","start_url":"/","display":"standalone","background_color":"#FFFFFF","theme_color":"#FFFFFF","icons":[{"src":"https://via.placeholder.com/512","sizes":"512x512","type":"image/png"}]}'
+      href='data:application/manifest+json,{"name":"Ofertas VIP","short_name":"Ofertas VIP","description":"Divulgação e automação para grupos no WhatsApp","start_url":"/","display":"standalone","background_color":"#FFFFFF","theme_color":"#10B981","icons":[{"src":"https://via.placeholder.com/512","sizes":"512x512","type":"image/png"}]}'
     />
 
     <!-- Estilização CSS (Tailwind) -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
-  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-    <div id="root" class="max-w-md w-full bg-white rounded-xl shadow-lg p-6 text-center">
-      <h1 class="text-2xl font-bold text-gray-800 mb-2">Ofertas VIP</h1>
-      <p class="text-gray-600 mb-6">
-        Divulgação e automação para grupos no WhatsApp
-      </p>
-      <p class="text-sm text-gray-500">
-        Aplicação pronta para empacotamento Android (APK).
-      </p>
-    </div>
+  <body class="bg-gray-50 min-h-screen pb-10">
+    <!-- Cabeçalho -->
+    <header class="bg-emerald-600 text-white p-4 shadow-md sticky top-0 z-10 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa-solid fa-bolt text-amber-300 text-xl"></i>
+        <h1 class="text-xl font-bold tracking-wide">Ofertas VIP</h1>
+      </div>
+      <span class="text-xs bg-emerald-700 px-2.5 py-1 rounded-full border border-emerald-500">Automação</span>
+    </header>
+
+    <main class="max-w-md mx-auto p-4 space-x-0 space-y-4">
+      <!-- Card do Formulario -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-4">
+        <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+          <i class="fa-solid fa-link text-emerald-600"></i> Criar Divulgação
+        </h2>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-600 mb-1">Loja / Plataforma</label>
+          <select id="platform" class="w-full p-2.5 border border-gray-200 rounded-xl bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            <option value="Shopee">Shopee</option>
+            <option value="Shein">Shein</option>
+            <option value="Mercado Livre">Mercado Livre</option>
+            <option value="Amazon">Amazon</option>
+            <option value="Outra">Outra Loja</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-600 mb-1">Título do Produto</label>
+          <input type="text" id="title" placeholder="Ex: Kit 3 Camisetas Algodão Premium" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Preço De (R$)</label>
+            <input type="text" id="oldPrice" placeholder="129,90" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Preço Por (R$)</label>
+            <input type="text" id="newPrice" placeholder="59,90" class="w-full p-2.5 border border-gray-200 rounded-xl text-sm font-bold text-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-gray-600 mb-1">Link de Afiliado</label>
+          <input type="url" id="link" placeholder="https://..." class="w-full p-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+        </div>
+
+        <button onclick="generateCopy()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition active:scale-95">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Mensagem VIP
+        </button>
+      </div>
+
+      <!-- Card da Prévia/Resultado -->
+      <div id="resultCard" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 space-y-3 hidden">
+        <div class="flex justify-between items-center">
+          <h3 class="text-sm font-semibold text-gray-700">Prévia da Mensagem</h3>
+          <button onclick="copyText()" class="text-xs text-emerald-600 font-medium hover:underline flex items-center gap-1">
+            <i class="fa-regular fa-copy"></i> Copiar
+          </button>
+        </div>
+
+        <textarea id="output" rows="7" class="w-full p-3 border border-gray-200 rounded-xl text-xs bg-gray-50 font-mono text-gray-800 focus:outline-none"></textarea>
+
+        <button onclick="sendToWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-xl shadow-md flex items-center justify-center gap-2 transition active:scale-95">
+          <i class="fa-brands fa-whatsapp text-lg"></i> Enviar para Grupo VIP
+        </button>
+      </div>
+    </main>
+
+    <!-- Lógica em JS -->
+    <script>
+      function generateCopy() {
+        const platform = document.getElementById('platform').value;
+        const title = document.getElementById('title').value || 'OFERTA IMPERDÍVEL';
+        const oldPrice = document.getElementById('oldPrice').value;
+        const newPrice = document.getElementById('newPrice').value || '0,00';
+        const link = document.getElementById('link').value || 'https://';
+
+        let priceText = oldPrice ? `De: ~R$ ${oldPrice}~\nPor apenas: *R$ ${newPrice}* 🔥` : `Por apenas: *R$ ${newPrice}* 🔥`;
+
+        const copy = `🚨 *ACHADINHO VIP - ${platform.toUpperCase()}* 🚨\n\n` +
+          `📦 *${title}*\n\n` +
+          `${priceText}\n\n` +
+          `🛒 *Garanta o seu no link:* \n${link}\n\n` +
+          `⚠️ _Preço sujeito a alteração a qualquer momento!_`;
+
+        document.getElementById('output').value = copy;
+        document.getElementById('resultCard').classList.remove('hidden');
+      }
+
+      function copyText() {
+        const output = document.getElementById('output');
+        output.select();
+        document.execCommand('copy');
+        alert('Mensagem copiada com sucesso!');
+      }
+
+      function sendToWhatsApp() {
+        const text = encodeURIComponent(document.getElementById('output').value);
+        window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+      }
+    </script>
   </body>
 </html>
