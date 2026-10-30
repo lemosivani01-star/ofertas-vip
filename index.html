@@ -7,13 +7,23 @@
       name="description"
       content="Ofertas VIP — reúna promoções da Shopee, Shein, Mercado Livre e mais, gere a mensagem com IA e dispare automaticamente para o seu grupo VIP no WhatsApp."
     />
-  <link rel="manifest" href="/manifest.json" /><title>Ofertas VIP — Divulgação para grupos no WhatsApp</title>
+    <title>Ofertas VIP — Divulgação para grupos no WhatsApp</title>
+
+    <!-- Manifesto do Aplicativo Embutido -->
+    <link
+      rel="manifest"
+      href='data:application/manifest+json,{"name":"Ofertas VIP","short_name":"Ofertas VIP","description":"Divulgação e automação para grupos no WhatsApp","start_url":"/","display":"standalone","background_color":"#FFFFFF","theme_color":"#FFFFFF","icons":[{"src":"https://via.placeholder.com/512","sizes":"512x512","type":"image/png"}]}'
+    />
+
+    <!-- Estilização CSS (Tailwind) -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div id="root" class="max-w-md w-full bg-white rounded-xl shadow-lg p-6 text-center">
       <h1 class="text-2xl font-bold text-gray-800 mb-2">Ofertas VIP</h1>
-      <p class="text-gray-600 mb-6">Divulgação e automação para grupos no WhatsApp</p>
+      <p class="text-gray-600 mb-6">
+        Divulgação e automação para grupos no WhatsApp
+      </p>
       <p class="text-sm text-gray-500">
         Aplicação pronta para empacotamento Android (APK).
       </p>
