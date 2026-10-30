@@ -9,13 +9,13 @@
     <!-- Font Awesome (Ícones) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Configuração da Paleta Personalizada da Logo -->
+    <!-- Configuração da Paleta Personalizada (Rosé Blush, Nude Elegante, Marrom Café) -->
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              nudeBg: '#F7F5F2',       /* Branco Off / Fundo leve */
+              nudeBg: '#F7F5F2',       /* Branco Off */
               nudeCard: '#E8D5C4',     /* Nude Elegante */
               roseAccent: '#D8A7B1',   /* Rosé Suave */
               coffeeText: '#6B4F4F',   /* Marrom Café */
@@ -28,10 +28,9 @@
   </head>
   <body class="bg-nudeBg text-coffeeText min-h-screen pb-12">
 
-    <!-- Cabeçalho na Paleta Nude / Marrom Café -->
+    <!-- Cabeçalho -->
     <header class="bg-nudeCard text-coffeeText p-4 shadow-sm sticky top-0 z-20 flex justify-between items-center border-b border-roseAccent/40">
       <div class="flex items-center space-x-3">
-        <!-- Cole o link da sua logo abaixo no src se desejar -->
         <div class="w-9 h-9 rounded-xl bg-roseAccent/30 flex items-center justify-center border border-roseAccent/50">
           <i class="fa-solid fa-crown text-coffeeText"></i>
         </div>
@@ -42,13 +41,13 @@
       </span>
     </header>
 
-    <!-- Navegação por Abas com Cores da Logo -->
+    <!-- Navegação por Abas -->
     <nav class="bg-white border-b border-roseAccent/30 px-2 flex justify-around text-xs font-semibold text-coffeeText/70 sticky top-[69px] z-10 shadow-xs">
       <button onclick="switchTab('dashboard')" id="btn-dashboard" class="py-3 border-b-2 border-coffeeText text-coffeeText font-bold flex items-center gap-1.5">
         <i class="fa-solid fa-chart-line"></i> Painel
       </button>
       <button onclick="switchTab('niche')" id="btn-niche" class="py-3 border-b-2 border-transparent hover:text-coffeeText flex items-center gap-1.5">
-        <i class="fa-solid fa-shirt"></i> Nicho & Moda
+        <i class="fa-solid fa-tags"></i> Categorias
       </button>
       <button onclick="switchTab('schedule')" id="btn-schedule" class="py-3 border-b-2 border-transparent hover:text-coffeeText flex items-center gap-1.5">
         <i class="fa-solid fa-clock"></i> Disparos
@@ -96,31 +95,47 @@
         </div>
       </section>
 
-      <!-- ABA 2: NICHO E MODA -->
+      <!-- ABA 2: CATEGORIAS E EDICAO DINAMICA -->
       <section id="tab-niche" class="tab-content space-y-4 hidden">
+        
+        <!-- Adicionar Nova Categoria -->
         <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
           <h2 class="text-sm font-bold text-coffeeText flex items-center gap-2">
-            <i class="fa-solid fa-filter text-roseAccent"></i> Filtros de Moda Feminina
+            <i class="fa-solid fa-plus-circle text-roseAccent"></i> Nova Categoria
           </h2>
-          
-          <div>
-            <label class="block text-xs font-semibold text-coffeeText mb-2">Categorias Prioritárias</label>
-            <div class="grid grid-cols-2 gap-2 text-xs">
-              <label class="flex items-center gap-2 p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40"><input type="checkbox" checked class="accent-coffeeText"> Vestidos</label>
-              <label class="flex items-center gap-2 p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40"><input type="checkbox" checked class="accent-coffeeText"> Saias</label>
-              <label class="flex items-center gap-2 p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40"><input type="checkbox" checked class="accent-coffeeText"> Blusas / Tops</label>
-              <label class="flex items-center gap-2 p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40"><input type="checkbox" class="accent-coffeeText"> Calçados</label>
-            </div>
+          <div class="flex gap-2">
+            <input type="text" id="newCategoryInput" placeholder="Ex: Blazers, Moda Evangélica..." class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none focus:ring-2 focus:ring-roseAccent">
+            <button onclick="addCategory()" class="bg-coffeeText hover:bg-coffeeDark text-white font-bold px-4 py-2.5 rounded-xl text-xs transition active:scale-95 whitespace-nowrap">
+              Adicionar
+            </button>
           </div>
+        </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-coffeeText mb-1">Desconto Mínimo Obrigatório</label>
-            <select class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText focus:ring-2 focus:ring-roseAccent outline-none">
-              <option>Apenas produtos com 30% OFF ou mais</option>
-              <option selected>Apenas produtos com 50% OFF ou mais</option>
-              <option>Apenas menor preço dos últimos 30 dias</option>
-            </select>
+        <!-- Lista de Categorias Editáveis -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <div class="flex justify-between items-center">
+            <h2 class="text-sm font-bold text-coffeeText flex items-center gap-2">
+              <i class="fa-solid fa-tags text-roseAccent"></i> Categorias do Seu Nicho
+            </h2>
+            <span class="text-[10px] bg-nudeCard px-2 py-0.5 rounded-md font-semibold text-coffeeText" id="catCount">0 ativas</span>
           </div>
+          
+          <p class="text-[11px] text-coffeeText/70">Marque as categorias que deseja monitorar ou remova as que não utiliza:</p>
+
+          <!-- Lista Dinâmica via JS -->
+          <div id="categoryList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
+        </div>
+
+        <!-- Filtro de Desconto -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <h3 class="text-xs font-bold text-coffeeText flex items-center gap-2">
+            <i class="fa-solid fa-percent text-roseAccent"></i> Desconto Mínimo das Ofertas
+          </h3>
+          <select class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText focus:ring-2 focus:ring-roseAccent outline-none">
+            <option>Apenas produtos com 30% OFF ou mais</option>
+            <option selected>Apenas produtos com 50% OFF ou mais</option>
+            <option>Apenas menor preço dos últimos 30 dias</option>
+          </select>
         </div>
       </section>
 
@@ -160,7 +175,7 @@
         </div>
       </section>
 
-      <!-- ABA 4: CONEXÕES E APIS -->
+      <!-- ABA 4: CONEXÕES -->
       <section id="tab-settings" class="tab-content space-y-4 hidden">
         <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
           <h3 class="text-xs font-bold text-coffeeText flex items-center gap-2">
@@ -189,7 +204,68 @@
 
     </main>
 
+    <!-- LÓGICA JAVASCRIPT DINÂMICA -->
     <script>
+      // Categorias Iniciais Padrão
+      let categories = [
+        { name: 'Vestidos', active: true },
+        { name: 'Saias', active: true },
+        { name: 'Blusas / Tops', active: true },
+        { name: 'Calças / Jeans', active: true },
+        { name: 'Conjuntos Femininos', active: true },
+        { name: 'Lingerie / Pijamas', active: false },
+        { name: 'Calçados Femininos', active: false },
+        { name: 'Acessórios & Bolsas', active: false },
+        { name: 'Moda Praia', active: false }
+      ];
+
+      function renderCategories() {
+        const listContainer = document.getElementById('categoryList');
+        listContainer.innerHTML = '';
+
+        let activeCount = 0;
+
+        categories.forEach((cat, index) => {
+          if (cat.active) activeCount++;
+
+          const item = document.createElement('div');
+          item.className = 'flex items-center justify-between p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40 text-xs';
+          item.innerHTML = `
+            <label class="flex items-center gap-2.5 cursor-pointer font-medium text-coffeeText flex-1">
+              <input type="checkbox" ${cat.active ? 'checked' : ''} onchange="toggleCategory(${index})" class="accent-coffeeText w-4 h-4 rounded">
+              <span>${cat.name}</span>
+            </label>
+            <button onclick="deleteCategory(${index})" class="text-roseAccent hover:text-red-600 px-2 py-1 transition">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          `;
+          listContainer.appendChild(item);
+        });
+
+        document.getElementById('catCount').innerText = `${activeCount} ativas`;
+      }
+
+      function toggleCategory(index) {
+        categories[index].active = !categories[index].active;
+        renderCategories();
+      }
+
+      function addCategory() {
+        const input = document.getElementById('newCategoryInput');
+        const name = input.value.trim();
+        
+        if (!name) return alert('Digite o nome da categoria!');
+        
+        categories.push({ name: name, active: true });
+        input.value = '';
+        renderCategories();
+      }
+
+      function deleteCategory(index) {
+        categories.splice(index, 1);
+        renderCategories();
+      }
+
       function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
         document.querySelectorAll('nav button').forEach(el => {
@@ -219,6 +295,9 @@
         const text = encodeURIComponent(document.getElementById('previewArea').value);
         window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
       }
+
+      // Inicializa as categorias ao carregar a página
+      renderCategories();
     </script>
   </body>
 </html>
