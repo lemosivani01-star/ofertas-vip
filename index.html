@@ -4,34 +4,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ofertas VIP — Painel de Automação</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome (Ícones) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Configuração da Paleta Personalizada da Logo -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              nudeBg: '#F7F5F2',       /* Branco Off / Fundo leve */
+              nudeCard: '#E8D5C4',     /* Nude Elegante */
+              roseAccent: '#D8A7B1',   /* Rosé Suave */
+              coffeeText: '#6B4F4F',   /* Marrom Café */
+              coffeeDark: '#4A3434',   /* Marrom Café Escuro */
+            }
+          }
+        }
+      }
+    </script>
   </head>
-  <body class="bg-gray-100 min-h-screen text-gray-800 pb-12">
-    <!-- Header Personalizável -->
-    <header id="appHeader" class="bg-emerald-600 text-white p-4 shadow-md sticky top-0 z-20 flex justify-between items-center">
+  <body class="bg-nudeBg text-coffeeText min-h-screen pb-12">
+
+    <!-- Cabeçalho na Paleta Nude / Marrom Café -->
+    <header class="bg-nudeCard text-coffeeText p-4 shadow-sm sticky top-0 z-20 flex justify-between items-center border-b border-roseAccent/40">
       <div class="flex items-center space-x-3">
-        <img id="appLogo" src="https://via.placeholder.com/40" class="w-8 h-8 rounded-full border border-white/40 object-cover" alt="Logo">
-        <h1 id="appTitleText" class="text-lg font-bold">Ofertas VIP</h1>
+        <!-- Cole o link da sua logo abaixo no src se desejar -->
+        <div class="w-9 h-9 rounded-xl bg-roseAccent/30 flex items-center justify-center border border-roseAccent/50">
+          <i class="fa-solid fa-crown text-coffeeText"></i>
+        </div>
+        <h1 class="text-lg font-bold tracking-wide text-coffeeText">Ofertas VIP</h1>
       </div>
-      <span class="text-xs bg-emerald-800/60 border border-emerald-400/30 px-2.5 py-1 rounded-full flex items-center gap-1">
-        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Bot Ativo
+      <span class="text-xs bg-roseAccent text-white font-medium px-3 py-1 rounded-full shadow-sm flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> Automação Ativa
       </span>
     </header>
 
-    <!-- Navegação por Abas -->
-    <nav class="bg-white border-b border-gray-200 px-2 flex justify-around text-xs font-semibold text-gray-600 sticky top-[60px] z-10">
-      <button onclick="switchTab('dashboard')" id="btn-dashboard" class="py-3 border-b-2 border-emerald-600 text-emerald-600 flex items-center gap-1">
+    <!-- Navegação por Abas com Cores da Logo -->
+    <nav class="bg-white border-b border-roseAccent/30 px-2 flex justify-around text-xs font-semibold text-coffeeText/70 sticky top-[69px] z-10 shadow-xs">
+      <button onclick="switchTab('dashboard')" id="btn-dashboard" class="py-3 border-b-2 border-coffeeText text-coffeeText font-bold flex items-center gap-1.5">
         <i class="fa-solid fa-chart-line"></i> Painel
       </button>
-      <button onclick="switchTab('niche')" id="btn-niche" class="py-3 border-b-2 border-transparent hover:text-emerald-600 flex items-center gap-1">
-        <i class="fa-solid fa-shirt"></i> Nicho & Busca
+      <button onclick="switchTab('niche')" id="btn-niche" class="py-3 border-b-2 border-transparent hover:text-coffeeText flex items-center gap-1.5">
+        <i class="fa-solid fa-shirt"></i> Nicho & Moda
       </button>
-
-      <button onclick="switchTab('schedule')" id="btn-schedule" class="py-3 border-b-2 border-transparent hover:text-emerald-600 flex items-center gap-1">
+      <button onclick="switchTab('schedule')" id="btn-schedule" class="py-3 border-b-2 border-transparent hover:text-coffeeText flex items-center gap-1.5">
         <i class="fa-solid fa-clock"></i> Disparos
       </button>
-      <button onclick="switchTab('settings')" id="btn-settings" class="py-3 border-b-2 border-transparent hover:text-emerald-600 flex items-center gap-1">
+      <button onclick="switchTab('settings')" id="btn-settings" class="py-3 border-b-2 border-transparent hover:text-coffeeText flex items-center gap-1.5">
         <i class="fa-solid fa-gear"></i> Conexões
       </button>
     </nav>
@@ -40,54 +62,60 @@
 
       <!-- ABA 1: PAINEL PRINCIPAL -->
       <section id="tab-dashboard" class="tab-content space-y-4">
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-200">
-          <h2 class="text-sm font-bold text-gray-700 mb-3 flex items-center justify-between">
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <h2 class="text-sm font-bold text-coffeeText flex items-center justify-between">
             <span>Status da Automação</span>
-            <i class="fa-solid fa-robot text-emerald-600"></i>
+            <i class="fa-solid fa-robot text-roseAccent"></i>
           </h2>
           <div class="grid grid-cols-2 gap-3 text-center">
-            <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
-              <span class="block text-xs text-emerald-800">Ofertas Enviadas</span>
-              <span class="text-xl font-extrabold text-emerald-600">124</span>
+            <div class="bg-nudeBg p-3 rounded-xl border border-nudeCard">
+              <span class="block text-[11px] text-coffeeText/70 font-medium">Ofertas Enviadas</span>
+              <span class="text-xl font-extrabold text-coffeeText">124</span>
             </div>
-            <div class="bg-blue-50 p-3 rounded-xl border border-blue-100">
-              <span class="block text-xs text-blue-800">Grupos Conectados</span>
-              <span class="text-xl font-extrabold text-blue-600">8</span>
+            <div class="bg-nudeBg p-3 rounded-xl border border-nudeCard">
+              <span class="block text-[11px] text-coffeeText/70 font-medium">Grupos Conectados</span>
+              <span class="text-xl font-extrabold text-coffeeText">8</span>
             </div>
           </div>
         </div>
 
-        <!-- Conversor Manual / Teste -->
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 space-y-3">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-500">Conversor Rápido de Link</h3>
-          <input type="url" id="rawUrl" placeholder="Cole o link do produto (Shopee/Shein)..." class="w-full p-2.5 border border-gray-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
-          <button onclick="processLink()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 rounded-xl text-xs flex items-center justify-center gap-2">
-            <i class="fa-solid fa-link"></i> Gerar Link de Afiliado + Copy IA
+        <!-- Conversor de Link -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-coffeeText/60">Conversor Rápido de Link</h3>
+          <input type="url" id="rawUrl" placeholder="Cole o link do produto (Shopee, Shein, Mercado Livre)..." class="w-full p-3 border border-nudeCard rounded-xl text-xs focus:ring-2 focus:ring-roseAccent outline-none bg-nudeBg/50 text-coffeeText">
+          
+          <button onclick="processLink()" class="w-full bg-coffeeText hover:bg-coffeeDark text-white font-medium py-3 rounded-xl text-xs shadow-md flex items-center justify-center gap-2 transition active:scale-95">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Link de Afiliado + Copy IA
           </button>
-          <textarea id="previewArea" rows="5" class="w-full p-2.5 border border-gray-200 rounded-xl text-xs bg-gray-50 font-mono hidden" readonly></textarea>
+          
+          <textarea id="previewArea" rows="6" class="w-full p-3 border border-nudeCard rounded-xl text-xs bg-nudeBg font-mono text-coffeeText hidden focus:outline-none" readonly></textarea>
+
+          <button id="btnSendWhatsapp" onclick="sendWhatsapp()" class="w-full bg-roseAccent hover:bg-roseAccent/90 text-white font-bold py-3 rounded-xl text-xs shadow-md hidden flex items-center justify-center gap-2 transition active:scale-95">
+            <i class="fa-brands fa-whatsapp text-base"></i> Enviar para Grupo VIP
+          </button>
         </div>
       </section>
 
-      <!-- ABA 2: NICHO E PRODUTOS (MODA) -->
+      <!-- ABA 2: NICHO E MODA -->
       <section id="tab-niche" class="tab-content space-y-4 hidden">
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 space-y-3">
-          <h2 class="text-sm font-bold text-gray-700 flex items-center gap-2">
-            <i class="fa-solid fa-filter text-emerald-600"></i> Filtros do Seu Nicho
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <h2 class="text-sm font-bold text-coffeeText flex items-center gap-2">
+            <i class="fa-solid fa-filter text-roseAccent"></i> Filtros de Moda Feminina
           </h2>
           
           <div>
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Categorias Prioritárias</label>
+            <label class="block text-xs font-semibold text-coffeeText mb-2">Categorias Prioritárias</label>
             <div class="grid grid-cols-2 gap-2 text-xs">
-              <label class="flex items-center gap-2 p-2 border rounded-lg bg-gray-50"><input type="checkbox" checked class="accent-emerald-600"> Vestidos</label>
-              <label class="flex items-center gap-2 p-2 border rounded-lg bg-gray-50"><input type="checkbox" checked class="accent-emerald-600"> Saias</label>
-              <label class="flex items-center gap-2 p-2 border rounded-lg bg-gray-50"><input type="checkbox" checked class="accent-emerald-600"> Blusas / Tops</label>
-              <label class="flex items-center gap-2 p-2 border rounded-lg bg-gray-50"><input type="checkbox" class="accent-emerald-600"> Calçados</label>
+              <label class="flex items-center gap-2 p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40"><input type="checkbox" checked class="accent-coffeeText"> Vestidos</label>
+              <label class="flex items-center gap-2 p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40"><input type="checkbox" checked class="accent-coffeeText"> Saias</label>
+              <label class="flex items-center gap-2 p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40"><input type="checkbox" checked class="accent-coffeeText"> Blusas / Tops</label>
+              <label class="flex items-center gap-2 p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40"><input type="checkbox" class="accent-coffeeText"> Calçados</label>
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Desconto Mínimo Obrigatório</label>
-            <select class="w-full p-2 border border-gray-200 rounded-xl text-xs bg-gray-50">
+            <label class="block text-xs font-semibold text-coffeeText mb-1">Desconto Mínimo Obrigatório</label>
+            <select class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText focus:ring-2 focus:ring-roseAccent outline-none">
               <option>Apenas produtos com 30% OFF ou mais</option>
               <option selected>Apenas produtos com 50% OFF ou mais</option>
               <option>Apenas menor preço dos últimos 30 dias</option>
@@ -96,25 +124,25 @@
         </div>
       </section>
 
-      <!-- ABA 3: AGENDAMENTO E DISPAROS -->
+      <!-- ABA 3: AGENDAMENTO -->
       <section id="tab-schedule" class="tab-content space-y-4 hidden">
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 space-y-3">
-          <h2 class="text-sm font-bold text-gray-700 flex items-center gap-2">
-            <i class="fa-solid fa-clock text-emerald-600"></i> Frequência de Postagem
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <h2 class="text-sm font-bold text-coffeeText flex items-center gap-2">
+            <i class="fa-solid fa-clock text-roseAccent"></i> Agendamento de Disparos
           </h2>
 
           <div class="grid grid-cols-2 gap-2">
             <div>
-              <label class="block text-xs font-semibold text-gray-600 mb-1">Intervalo de Envio</label>
-              <select class="w-full p-2 border border-gray-200 rounded-xl text-xs bg-gray-50">
+              <label class="block text-xs font-semibold text-coffeeText mb-1">Intervalo de Envio</label>
+              <select class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none">
                 <option>A cada 30 minutos</option>
                 <option selected>A cada 1 hora</option>
                 <option>A cada 2 horas</option>
               </select>
             </div>
             <div>
-              <label class="block text-xs font-semibold text-gray-600 mb-1">Modo Anti-Bloqueio</label>
-              <select class="w-full p-2 border border-gray-200 rounded-xl text-xs bg-gray-50">
+              <label class="block text-xs font-semibold text-coffeeText mb-1">Modo Anti-Bloqueio</label>
+              <select class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none">
                 <option selected>Ativado (Varia 5-10min)</option>
                 <option>Desativado</option>
               </select>
@@ -122,11 +150,11 @@
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-gray-600 mb-1">Horário de Funcionamento</label>
+            <label class="block text-xs font-semibold text-coffeeText mb-1">Horário de Funcionamento</label>
             <div class="flex items-center gap-2 text-xs">
-              <input type="time" value="08:00" class="p-2 border rounded-lg w-full bg-gray-50">
+              <input type="time" value="08:00" class="p-2 border border-nudeCard rounded-xl w-full bg-nudeBg text-coffeeText">
               <span>até</span>
-              <input type="time" value="22:00" class="p-2 border rounded-lg w-full bg-gray-50">
+              <input type="time" value="22:00" class="p-2 border border-nudeCard rounded-xl w-full bg-nudeBg text-coffeeText">
             </div>
           </div>
         </div>
@@ -134,40 +162,27 @@
 
       <!-- ABA 4: CONEXÕES E APIS -->
       <section id="tab-settings" class="tab-content space-y-4 hidden">
-        <!-- Conexão WhatsApp -->
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 space-y-3">
-          <h3 class="text-xs font-bold text-gray-700 flex items-center gap-2">
-            <i class="fa-brands fa-whatsapp text-green-500 text-base"></i> Conexão WhatsApp
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <h3 class="text-xs font-bold text-coffeeText flex items-center gap-2">
+            <i class="fa-brands fa-whatsapp text-roseAccent text-base"></i> Conexão WhatsApp
           </h3>
-          <p class="text-xs text-gray-500">Escaneie o QR Code na API de automação para conectar sua conta de envio.</p>
-          <button class="w-full bg-green-500 hover:bg-green-600 text-white text-xs font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2">
+          <p class="text-xs text-coffeeText/70">Escaneie o QR Code para vincular seu número de disparo.</p>
+          <button class="w-full bg-roseAccent hover:bg-roseAccent/90 text-white text-xs font-bold py-2.5 rounded-xl shadow-sm flex items-center justify-center gap-2">
             <i class="fa-solid fa-qrcode"></i> Gerar QR Code de Conexão
           </button>
         </div>
 
-        <!-- Chaves de API de Afiliados -->
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 space-y-3">
-          <h3 class="text-xs font-bold text-gray-700 flex items-center gap-2">
-            <i class="fa-solid fa-key text-amber-500"></i> APIs de Afiliado & IA
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <h3 class="text-xs font-bold text-coffeeText flex items-center gap-2">
+            <i class="fa-solid fa-key text-roseAccent"></i> Chaves de API (Marketplaces)
           </h3>
           <div>
-            <label class="block text-[10px] font-bold text-gray-500 uppercase">Shopee App Key / App Secret</label>
-            <input type="text" placeholder="Cole sua chave da Shopee..." class="w-full p-2 border rounded-lg text-xs bg-gray-50 mb-2">
+            <label class="block text-[10px] font-bold text-coffeeText/60 uppercase mb-1">Shopee App Key / Secret</label>
+            <input type="text" placeholder="Cole sua chave da Shopee..." class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none">
           </div>
           <div>
-            <label class="block text-[10px] font-bold text-gray-500 uppercase">Chave IA (OpenAI / Gemini API)</label>
-            <input type="password" placeholder="sk-..." class="w-full p-2 border rounded-lg text-xs bg-gray-50">
-          </div>
-        </div>
-
-        <!-- Personalizar Marca -->
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 space-y-3">
-          <h3 class="text-xs font-bold text-gray-700 flex items-center gap-2">
-            <i class="fa-solid fa-palette text-purple-500"></i> Personalizar App
-          </h3>
-          <div>
-            <label class="block text-xs text-gray-600 mb-1">Nome do Aplicativo</label>
-            <input type="text" id="inputBrandName" value="Ofertas VIP" onchange="updateBrand()" class="w-full p-2 border rounded-lg text-xs bg-gray-50">
+            <label class="block text-[10px] font-bold text-coffeeText/60 uppercase mb-1">OpenAI / Gemini Key (IA)</label>
+            <input type="password" placeholder="sk-..." class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none">
           </div>
         </div>
       </section>
@@ -178,26 +193,31 @@
       function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
         document.querySelectorAll('nav button').forEach(el => {
-          el.classList.remove('border-emerald-600', 'text-emerald-600');
-          el.classList.add('border-transparent');
+          el.classList.remove('border-coffeeText', 'text-coffeeText', 'font-bold');
+          el.classList.add('border-transparent', 'text-coffeeText/70');
         });
 
         document.getElementById('tab-' + tabId).classList.remove('hidden');
-        document.getElementById('btn-' + tabId).classList.add('border-emerald-600', 'text-emerald-600');
-      }
-
-      function updateBrand() {
-        const name = document.getElementById('inputBrandName').value;
-        document.getElementById('appTitleText').innerText = name;
+        document.getElementById('btn-' + tabId).classList.add('border-coffeeText', 'text-coffeeText', 'font-bold');
+        document.getElementById('btn-' + tabId).classList.remove('border-transparent', 'text-coffeeText/70');
       }
 
       function processLink() {
         const raw = document.getElementById('rawUrl').value;
-        if(!raw) return alert('Cole um link primeiro!');
+        if(!raw) return alert('Por favor, cole um link de produto primeiro!');
         
         const preview = document.getElementById('previewArea');
+        const btnSend = document.getElementById('btnSendWhatsapp');
+        
         preview.classList.remove('hidden');
-        preview.value = "🚨 ACHADINHO DE MODA FEMININA 🚨\n\n👗 Vestido Midi Elegante Estampado\nDe: ~R$ 159,90~\nPor apenas: *R$ 69,90* 🔥 (56% OFF)\n\n🛒 Compre com desconto aqui:\nhttps://shope.ee/seu_link_afiliado";
+        btnSend.classList.remove('hidden');
+        
+        preview.value = "🚨 ACHADINHO VIP — MODA FEMININA 🚨\n\n👗 Vestido Midi Elegante Estampado\nDe: ~R$ 159,90~\nPor apenas: *R$ 69,90* 🔥 (56% OFF)\n\n🛒 Garanta o seu no link com desconto:\nhttps://shope.ee/seu_link_afiliado\n\n⚠️ _Preço sujeito a alteração a qualquer momento!_";
+      }
+
+      function sendWhatsapp() {
+        const text = encodeURIComponent(document.getElementById('previewArea').value);
+        window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
       }
     </script>
   </body>
