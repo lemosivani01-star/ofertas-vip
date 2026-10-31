@@ -36,9 +36,10 @@
         </div>
         <h1 class="text-lg font-bold tracking-wide text-coffeeText">Ofertas VIP</h1>
       </div>
-      <span class="text-xs bg-roseAccent text-white font-medium px-3 py-1 rounded-full shadow-sm flex items-center gap-1.5">
+      <!-- Badge Informativa de Status -->
+      <div title="Status do Sistema: Recursos de IA e Foto prontos" class="text-xs bg-roseAccent text-white font-medium px-3 py-1 rounded-full shadow-sm flex items-center gap-1.5 cursor-help">
         <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> IA & Foto Ativas
-      </span>
+      </div>
     </header>
 
     <!-- Navegação por Abas -->
@@ -73,7 +74,7 @@
             </div>
             <div class="bg-nudeBg p-3 rounded-xl border border-nudeCard">
               <span class="block text-[11px] text-coffeeText/70 font-medium">Grupos Conectados</span>
-              <span class="text-xl font-extrabold text-coffeeText">8</span>
+              <span class="text-xl font-extrabold text-coffeeText" id="dashGroupCount">0</span>
             </div>
           </div>
         </div>
@@ -173,31 +174,71 @@
         </div>
       </section>
 
-      <!-- ABA 4: CONEXÕES -->
+      <!-- ABA 4: CONEXÕES (WHATSAPP, GRUPOS E SHOPEE) -->
       <section id="tab-settings" class="tab-content space-y-4 hidden">
+        
+        <!-- Conexão WhatsApp / WhatsApp Business -->
         <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
           <h3 class="text-xs font-bold text-coffeeText flex items-center gap-2">
-            <i class="fa-brands fa-whatsapp text-roseAccent text-base"></i> Conexão WhatsApp
+            <i class="fa-brands fa-whatsapp text-roseAccent text-base"></i> Conexão WhatsApp / Business
           </h3>
-          <p class="text-xs text-coffeeText/70">Escaneie o QR Code para vincular seu número de disparo.</p>
-          <button class="w-full bg-roseAccent hover:bg-roseAccent/90 text-white text-xs font-bold py-2.5 rounded-xl shadow-sm flex items-center justify-center gap-2">
+          <p class="text-xs text-coffeeText/70">Clique no botão abaixo para gerar o QR Code de leitura no celular.</p>
+          
+          <button onclick="generateQrCode()" class="w-full bg-roseAccent hover:bg-roseAccent/90 text-white text-xs font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition active:scale-95">
             <i class="fa-solid fa-qrcode"></i> Gerar QR Code de Conexão
+          </button>
+
+          <!-- Área do QR Code Gerado -->
+          <div id="qrCodeContainer" class="hidden text-center space-y-3 p-4 border border-nudeCard rounded-xl bg-nudeBg mt-3">
+            <p class="text-xs font-semibold text-coffeeText">Abra o WhatsApp > Aparelhos Conectados > Conectar Aparelho</p>
+            <div class="flex justify-center">
+              <img id="qrCodeImg" src="" alt="QR Code WhatsApp" class="w-48 h-48 border-4 border-white rounded-xl shadow-md">
+            </div>
+            <span class="text-[10px] text-emerald-600 font-bold block animate-pulse">Aguardando leitura do QR Code...</span>
+          </div>
+        </div>
+
+        <!-- Vincular Grupos do WhatsApp -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <div class="flex justify-between items-center">
+            <h3 class="text-xs font-bold text-coffeeText flex items-center gap-2">
+              <i class="fa-solid fa-users text-roseAccent"></i> Vincular Grupos VIP
+            </h3>
+            <span class="text-[10px] bg-nudeCard px-2 py-0.5 rounded-md font-semibold text-coffeeText" id="groupCount">0 vinculados</span>
+          </div>
+
+          <p class="text-[11px] text-coffeeText/70">Adicione o nome ou link dos grupos que receberão os disparos automáticos:</p>
+
+          <div class="flex gap-2">
+            <input type="text" id="newGroupInput" placeholder="Ex: Grupo VIP Ofertas 01..." class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none focus:ring-2 focus:ring-roseAccent">
+            <button onclick="addGroup()" class="bg-coffeeText hover:bg-coffeeDark text-white font-bold px-4 py-2.5 rounded-xl text-xs transition active:scale-95 whitespace-nowrap">
+              Vincular
+            </button>
+          </div>
+
+          <div id="groupList" class="space-y-2 max-h-40 overflow-y-auto pr-1"></div>
+        </div>
+
+        <!-- Chaves de API Shopee & Ativação -->
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
+          <h3 class="text-xs font-bold text-coffeeText flex items-center gap-2">
+            <i class="fa-solid fa-key text-roseAccent"></i> API Shopee & Afiliados
+          </h3>
+          
+          <div>
+            <label class="block text-[10px] font-bold text-coffeeText/60 uppercase mb-1">Shopee App Key</label>
+            <input type="text" id="shopeeKey" placeholder="Cole sua App Key da Shopee..." class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-coffeeText/60 uppercase mb-1">Shopee App Secret</label>
+            <input type="password" id="shopeeSecret" placeholder="Cole seu App Secret da Shopee..." class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none">
+          </div>
+
+          <button id="btnActivateShopee" onclick="toggleShopeeApi()" class="w-full bg-coffeeText hover:bg-coffeeDark text-white text-xs font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition active:scale-95">
+            <i class="fa-solid fa-power-off"></i> Ativar Conexão Shopee
           </button>
         </div>
 
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-roseAccent/20 space-y-3">
-          <h3 class="text-xs font-bold text-coffeeText flex items-center gap-2">
-            <i class="fa-solid fa-key text-roseAccent"></i> Chaves de API (Marketplaces)
-          </h3>
-          <div>
-            <label class="block text-[10px] font-bold text-coffeeText/60 uppercase mb-1">Shopee App Key / Secret</label>
-            <input type="text" placeholder="Cole sua chave da Shopee..." class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none">
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold text-coffeeText/60 uppercase mb-1">OpenAI / Gemini Key (IA)</label>
-            <input type="password" placeholder="sk-..." class="w-full p-2.5 border border-nudeCard rounded-xl text-xs bg-nudeBg text-coffeeText outline-none">
-          </div>
-        </div>
       </section>
 
     </main>
@@ -209,12 +250,15 @@
         { name: 'Saias', active: true },
         { name: 'Blusas / Tops', active: true },
         { name: 'Calças / Jeans', active: true },
-        { name: 'Conjuntos Femininos', active: true },
-        { name: 'Lingerie / Pijamas', active: false },
-        { name: 'Calçados Femininos', active: false },
-        { name: 'Acessórios & Bolsas', active: false },
-        { name: 'Moda Praia', active: false }
+        { name: 'Conjuntos Femininos', active: true }
       ];
+
+      let groups = [
+        { name: 'Grupo VIP Moda 01' },
+        { name: 'Grupo VIP Achadinhos 02' }
+      ];
+
+      let shopeeActive = false;
 
       function renderCategories() {
         const listContainer = document.getElementById('categoryList');
@@ -259,6 +303,71 @@
         renderCategories();
       }
 
+      function renderGroups() {
+        const groupContainer = document.getElementById('groupList');
+        groupContainer.innerHTML = '';
+
+        groups.forEach((grp, index) => {
+          const item = document.createElement('div');
+          item.className = 'flex items-center justify-between p-2.5 border border-nudeCard rounded-xl bg-nudeBg/40 text-xs';
+          item.innerHTML = `
+            <span class="font-semibold text-coffeeText flex items-center gap-2">
+              <i class="fa-brands fa-whatsapp text-emerald-600"></i> ${grp.name}
+            </span>
+            <button onclick="deleteGroup(${index})" class="text-roseAccent hover:text-red-600 px-2 py-1 transition">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          `;
+          groupContainer.appendChild(item);
+        });
+
+        document.getElementById('groupCount').innerText = `${groups.length} vinculados`;
+        document.getElementById('dashGroupCount').innerText = groups.length;
+      }
+
+      function addGroup() {
+        const input = document.getElementById('newGroupInput');
+        const name = input.value.trim();
+        if (!name) return alert('Digite o nome ou cole o link do grupo!');
+        groups.push({ name: name });
+        input.value = '';
+        renderGroups();
+      }
+
+      function deleteGroup(index) {
+        groups.splice(index, 1);
+        renderGroups();
+      }
+
+      function generateQrCode() {
+        const container = document.getElementById('qrCodeContainer');
+        const img = document.getElementById('qrCodeImg');
+        
+        // Exemplo de QR Code real gerado dinamicamente
+        img.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=OFERTAS_VIP_WHATSAPP_CONNECT";
+        container.classList.remove('hidden');
+      }
+
+      function toggleShopeeApi() {
+        const key = document.getElementById('shopeeKey').value;
+        const secret = document.getElementById('shopeeSecret').value;
+        const btn = document.getElementById('btnActivateShopee');
+
+        if (!shopeeActive) {
+          if (!key || !secret) {
+            return alert('Preencha a App Key e o App Secret da Shopee antes de ativar!');
+          }
+          shopeeActive = true;
+          btn.className = "w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition active:scale-95";
+          btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> Conexão Shopee Ativa`;
+          alert('Conexão com a Shopee ativada com sucesso!');
+        } else {
+          shopeeActive = false;
+          btn.className = "w-full bg-coffeeText hover:bg-coffeeDark text-white text-xs font-bold py-3 rounded-xl shadow-sm flex items-center justify-center gap-2 transition active:scale-95";
+          btn.innerHTML = `<i class="fa-solid fa-power-off"></i> Ativar Conexão Shopee`;
+        }
+      }
+
       function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
         document.querySelectorAll('nav button').forEach(el => {
@@ -280,14 +389,12 @@
         const imgContainer = document.getElementById('imagePreviewContainer');
         const productImg = document.getElementById('productImg');
         
-        // Exemplo de busca da foto do produto
         productImg.src = "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&auto=format&fit=crop&q=60";
         imgContainer.classList.remove('hidden');
 
         preview.classList.remove('hidden');
         btnSend.classList.remove('hidden');
         
-        // Estrutura Curta, Objetiva e com Gatilhos de Urgência
         preview.value = "🚨 *OFERTA RELÂMPAGO! ESTOQUE LIMITADO* 🚨\n\n" +
           "👗 *Vestido Midi Elegante Estampado*\n\n" +
           "❌ De: ~R$ 159,90~\n" +
@@ -295,7 +402,7 @@
           "⚡ *MENOR PREÇO DO ANO! VAI ACABAR RÁPIDO!*\n" +
           "👇 *COMPRE AGORA NO LINK OFICIAL:*\n" +
           "https://shope.ee/seu_link_afiliado\n\n" +
-          "🔥 *CORRA ANTES QUE O CORPO DE ESTOQUE ZERE!*";
+          "🔥 *CORRA ANTES QUE O ESTOQUE ZERE!*";
       }
 
       function sendWhatsapp() {
@@ -304,6 +411,7 @@
       }
 
       renderCategories();
+      renderGroups();
     </script>
   </body>
 </html>
